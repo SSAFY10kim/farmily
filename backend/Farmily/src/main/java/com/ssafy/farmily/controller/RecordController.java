@@ -1,6 +1,7 @@
 package com.ssafy.farmily.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,7 +59,7 @@ public class RecordController {
 	}
 
 
-	@PostMapping("/event")
+	@PostMapping(value = "/event", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Operation(
 		summary = "이벤트 기록 작성",
 		description = "이벤트 기록을 작성합니다."
@@ -68,7 +69,7 @@ public class RecordController {
 	})
 	private ResponseEntity<Void> postEvent(
 		// TODO: userdetails 추가
-		@RequestBody EventRecordPostRequestDto request
+		EventRecordPostRequestDto request
 	) {
 		recordService.createEventRecord(request);
 
@@ -76,7 +77,7 @@ public class RecordController {
 	}
 
 
-	@PutMapping("/event")
+	@PutMapping(value = "/event", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Operation(
 		summary = "이벤트 기록 수성",
 		description = "이벤트 기록을 수성합니다."
@@ -86,7 +87,7 @@ public class RecordController {
 	})
 	private ResponseEntity<Void> putEvent(
 		// TODO: userdetails 추가
-		@RequestBody EventRecordPutRequestDto request
+		EventRecordPutRequestDto request
 	) {
 		recordService.editEventRecord(request);
 
