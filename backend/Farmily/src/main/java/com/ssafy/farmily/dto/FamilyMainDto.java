@@ -3,7 +3,6 @@ package com.ssafy.farmily.dto;
 import java.util.List;
 
 import com.ssafy.farmily.entity.Family;
-import com.ssafy.farmily.entity.Tree;
 
 import lombok.Data;
 import lombok.ToString;
@@ -23,8 +22,6 @@ FamilyMainDto {
 		familyMainDTO.setId(family.getId());
 		familyMainDTO.setName(family.getName());
 		familyMainDTO.setMotto(family.getMotto());
-		Tree tree = family.getTree();
-		familyMainDTO.setTree(FamilyMainTreeDto.from(tree));
 		return familyMainDTO;
 	}
 

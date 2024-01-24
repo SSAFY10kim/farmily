@@ -1,4 +1,4 @@
-package com.ssafy.farmily.controller;
+package com.ssafy.farmily.controller.family;
 
 import java.util.List;
 

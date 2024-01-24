@@ -1,4 +1,4 @@
-package utils;
+package com.ssafy.farmily.entity.type;
 
 import java.time.LocalDate;
 import java.time.Period;

@@ -14,6 +14,7 @@ import com.ssafy.farmily.dto.FamilyBasketDto;
 import com.ssafy.farmily.dto.FamilyItemDto;
 import com.ssafy.farmily.dto.FamilyMainDto;
 import com.ssafy.farmily.dto.FamilyMainTreeDto;
+import com.ssafy.farmily.dtoFactory.GetFamily;
 import com.ssafy.farmily.entity.Sprint;
 import com.ssafy.farmily.exception.NoSuchContentException;
 import com.ssafy.farmily.repository.RecordRepository;
@@ -49,7 +50,7 @@ class FamilyServiceTest {
 
 		// when
 		FamilyMainDto familyMainDto = familyService.setMainFamilyInfo(familyId);
-		FamilyMainTreeDto tree = FamilyMainTreeDto.from(treeRepository.findById(familyId).get());
+		FamilyMainTreeDto tree = GetFamily.treeToDTO(treeRepository.findById(familyId).get());
 		List<Long> challenges = recordRepository.findCurrentChallenges(familyId);
 
 		FamilyMainDto findDto = new FamilyMainDto();
