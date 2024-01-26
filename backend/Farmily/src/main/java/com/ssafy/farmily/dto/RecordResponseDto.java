@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ssafy.farmily.entity.Record;
 import com.ssafy.farmily.type.RecordType;
 
@@ -20,7 +22,15 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-@Schema(description = "기록 응답 DTO")
+@Schema(
+	description = "기록 응답 DTO",
+	type = "object",
+	discriminatorProperty = "type",
+	oneOf = {
+		EventRecordResponseDto.class,
+		ChallengeRecordResponseDto.class
+	}
+)
 public class RecordResponseDto {
 	protected RecordType type;
 	protected Long id;
