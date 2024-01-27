@@ -4,7 +4,9 @@ import axios from 'axios';
 
 import SmallButton from '../components/SmallButton.jsx';
 
-const BASE_URL = 'http://i10e102.p.ssafy.io:8080/';
+const envConfig = {
+  API_URL: import.meta.env.VITE_API_URL,
+};
 
 export default function EventCreatePage() {
   const [title, setTitle] = useState('');
@@ -69,7 +71,7 @@ export default function EventCreatePage() {
     console.log(formData);
     axios({
       method: 'post',
-      url: BASE_URL + 'record/event',
+      url: envConfig.API_URL + 'record/event',
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
@@ -110,28 +112,32 @@ export default function EventCreatePage() {
             multiple
           />
         </label>
-        <div className="flex flex-no-wrap gap-4 overflow-x-auto h-3/4">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="relative border border-stone-700 flex-shrink-0 snap-center"
-            >
-              <img
-                src={image.url}
-                alt={`Selected ${index + 1}`}
-                className="object-contain w-48 h-48 mb-2 rounded"
-              />
-              <textarea
-                type="text"
-                placeholder="간단한 설명을 입력하세요"
-                value={imageDescriptions[index]}
-                onChange={(e) =>
-                  handleImageDescriptionChange(index, e.target.value)
-                }
-                className="border border-stone-500 rounded p-2 w-48 absolute bottom-0 left-0 bg-white h-1/3 overflow-hidden whitespace-normal resize-none"
-              ></textarea>
-            </div>
-          ))}
+        <div className="flex justify-center overflow-x-auto h-3/4">
+          <div className="flex flex-no-wrap gap-4">
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className="relative bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700 flex-shrink-0 snap-center"
+              >
+                <div>
+                  <img
+                    src={image.url}
+                    alt={`Selected ${index + 1}`}
+                    className="object-contain w-48 h-48 rounded my-auto"
+                  />
+                </div>
+                <textarea
+                  type="text"
+                  placeholder="간단한 설명을 입력하세요"
+                  value={imageDescriptions[index]}
+                  onChange={(e) =>
+                    handleImageDescriptionChange(index, e.target.value)
+                  }
+                  className="border border-stone-500 p-2 w-48 absolute bottom-0 left-0 bg-white h-1/3 overflow-hidden whitespace-normal resize-none rounded-lg"
+                ></textarea>
+              </div>
+            ))}
+          </div>
         </div>
       </form>
       <div onClick={handleCreateEvent}>
