@@ -21,8 +21,8 @@ import io.jsonwebtoken.security.Keys;
 public class JwtFactory {
 
 	private final Key key;
-	private final long ACCESS_TOKEN_EXPIRE_TIME_IN_MS = 1000 * 60 * 15; // 15분
-	private final long REFRESH_TOKEN_EXPIRE_TIME_IN_MS = 1000 * 60 * 15; // 15분
+	private final long ACCESS_TOKEN_EXPIRE_TIME_IN_MS = 1000 * 60 * 60 * 60; // 60일
+	private final long REFRESH_TOKEN_EXPIRE_TIME_IN_MS = 1000 * 60 * 60 * 60; // 60일
 
 	protected static final String ISSUER = "farmily";
 

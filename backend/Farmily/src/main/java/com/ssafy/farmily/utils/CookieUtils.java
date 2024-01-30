@@ -15,7 +15,8 @@ public class CookieUtils {
 
 	public static void addOAuth2TokenToBrowser(HttpServletResponse res, LoginResponseDto tokenResponse) {
 		if (StringUtils.hasText(tokenResponse.getAccessToken())) {
-			addCookie(res, "accessToken", tokenResponse.getAccessToken(), 60 * 15);
+			// 1분 동안, 사용자 인증 토큰을 쿠키에 보관합니다.
+			addCookie(res, "accessToken", tokenResponse.getAccessToken(), 60);
 		} else {
 			throw new IllegalArgumentException("accessToken이 존재하지 않음");
 		}

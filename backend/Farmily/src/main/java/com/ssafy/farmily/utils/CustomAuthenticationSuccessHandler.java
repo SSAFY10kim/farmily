@@ -2,11 +2,12 @@ package com.ssafy.farmily.utils;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import com.ssafy.farmily.dto.oauth.LoginResponseDto;
@@ -20,10 +21,13 @@ import lombok.extern.log4j.Log4j2;
 @Component
 @Log4j2
 @RequiredArgsConstructor
-public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
+// public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	private final JwtFactory jwtFactory;
-	private final String REDIRECT_URL = "/auth/test";
+
+	@Value("${jwt.redirect-uri}")
+	private String TOKEN_ISSUE_URI;
+
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -39,6 +43,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		LoginResponseDto tokenResponse = jwtFactory.createToken(oidcUser);
 		CookieUtils.addOAuth2TokenToBrowser(response, tokenResponse);
 		log.info("onAuthenticationSuccess has been called in CustomAuthenticationSuccessHandler");
-		response.sendRedirect(request.getContextPath() + REDIRECT_URL);
+		getRedirectStrategy().sendRedirect(request, response, TOKEN_ISSUE_URI);
 	}
 }
