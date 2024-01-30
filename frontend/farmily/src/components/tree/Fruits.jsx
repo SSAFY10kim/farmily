@@ -1,15 +1,19 @@
+// Fruits.js
 import React from "react";
+import { useGrid } from "./GridContext";
 import EventFruit from "../../assets/images/EventFruit.png";
 
-
 const Fruits = () => {
+  const { addItem } = useGrid();
+
+  const handleFruitClick = () => {
+    // 임의의 아이디와 좌표를 설정합니다. 실제 구현에서는 사용자가 선택한 좌표를 사용해야 합니다.
+    addItem({ id: Date.now(), image: EventFruit, x: 100, y: 100 });
+  };
+
   return (
-    <div className="bg-blue-200 p-4">
-      <h2 className="text-2xl font-bold">열매 메뉴</h2>
-      <p>열매 메뉴의 내용을 여기에 추가하세요.</p>
-      <img src={EventFruit} alt="과일 이미지" />
-
-
+    <div className="fruits">
+      <img src={EventFruit} alt="Fruit" onClick={handleFruitClick} />
     </div>
   );
 };
