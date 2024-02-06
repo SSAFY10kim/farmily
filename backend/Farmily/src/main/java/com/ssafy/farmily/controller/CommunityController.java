@@ -20,6 +20,7 @@ import com.ssafy.farmily.service.community.CommunityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import com.ssafy.farmily.utils.SliceResponse;
@@ -66,7 +67,7 @@ public class CommunityController {
 		return ResponseEntity.ok(communityPostDetailDto);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("")
 	@Operation(
 		summary = "커뮤니티 post insert",
 		description = "커뮤니티 post를 생성합니다."
@@ -78,7 +79,7 @@ public class CommunityController {
 		)
 	})
 	public ResponseEntity<String> insertPost(
-		@RequestBody InsertCommunityPostRequestDto insertPostRequestDto,
+		@Valid @RequestBody InsertCommunityPostRequestDto insertPostRequestDto,
 		@AuthenticationPrincipal String username
 	) {
 		String result = communityService.insertCommunityPost(insertPostRequestDto, username);
