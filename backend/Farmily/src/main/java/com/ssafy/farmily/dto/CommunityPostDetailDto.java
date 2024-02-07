@@ -1,11 +1,10 @@
 package com.ssafy.farmily.dto;
 
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.farmily.entity.CommunityPost;
-import com.ssafy.farmily.entity.Image;
-import com.ssafy.farmily.service.file.FileService;
 
 import lombok.Data;
 import lombok.ToString;
@@ -17,12 +16,15 @@ public class CommunityPostDetailDto {
 	String content;
 	String author;
 	ImageDto treeImage;
+	String createdAt;
 
 	public static CommunityPostDetailDto from(CommunityPost communityPost) {
 		CommunityPostDetailDto postDetailDto = new CommunityPostDetailDto();
 		BeanUtils.copyProperties(communityPost, postDetailDto);
+		postDetailDto.setAuthor(communityPost.getAuthor().getNickname());
 		ImageDto treeSnapshot = ImageDto.from(communityPost.getTreeImage());
 		postDetailDto.setTreeImage(treeSnapshot);
+		postDetailDto.setCreatedAt(communityPost.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 		return postDetailDto;
 	}
 }
