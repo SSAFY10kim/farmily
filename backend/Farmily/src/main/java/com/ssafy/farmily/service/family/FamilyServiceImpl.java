@@ -333,6 +333,9 @@ public class FamilyServiceImpl implements FamilyService {
 		String inviteCode = requestDto.getInvitationCode();
 		Family family = familyRepository.findByInvitationCode(inviteCode)
 			.orElseThrow(() -> new NoSuchContentException("존재 하지 않는 초대코드입니다."));
+		if(familyMembershipRepository.existsByFamilyIdAndMemberUsername(family.getId(),username)){
+			throw new BusinessException("이미 가입하신 가족입니다.");
+		}
 		Member member = memberService.getEntity(username);
 		FamilyMembership familyMembership = FamilyMembership.builder()
 			.member(member)

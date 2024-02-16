@@ -2,6 +2,9 @@ package com.ssafy.farmily.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import lombok.RequiredArgsConstructor;
 import com.ssafy.farmily.utils.DateRange;
 
@@ -30,6 +33,7 @@ public class ChallengeRecord extends Record {
 	@Column(columnDefinition = "BOOLEAN")
 	private Boolean isRewarded;
 
+	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy = "challenge")
 	private List<ChallengeProgress> progresses;
 }
