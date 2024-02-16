@@ -1,0 +1,28 @@
+server:
+  servlet:
+    encoding:
+      charset: "UTF-8"
+      enabled: true
+      force: true
+
+spring:
+  servlet:
+    multipart:
+      maxFileSize: 100MB
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            authorization-grant-type: authorization_code
+
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize?prompt=login
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v1/oidc/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: https://kauth.kakao.com/.well-known/jwks.json
+          facebook:
+            jwk-set-uri: https://www.facebook.com/.well-known/oauth/openid/jwks/
